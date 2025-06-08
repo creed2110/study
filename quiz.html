@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz</title>
+    <link rel="stylesheet" href="assets/Frame-works/bootstrap-5.0.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/Frame-works/boxicons-2.1.4/css/boxicons.min.css">
+    <style>
+         body{
+        padding-bottom: 20px;
+      }
+      .card{
+        border-radius: 15px;
+        box-shadow: 0 4px 8px rgb(0,0,0,0.1);
+      }
+      nav.nav{
+        font-size: 13px;
+      }
+      nav.nav i{
+        font-size:18px;
+        
+      }
+      .next{
+          border-radius: 50%;
+          width:80px;
+          height:80px;
+
+      }
+    </style>
+</head>
+<body>
+    <div class="container py-4">
+        <div class="card p-4" id="quizcard">
+            <h4 class="mb-3 text-center">
+                start a quiz
+            </h4>
+            <div id="startsection">
+                <div class="mb-3">
+                    <label for="" class="form-label">Select subject</label>
+                    <select  id="subject-select" class="form-select">
+                        <option selected disabled>Choose subject</option>
+                        <option value="">Mathematics</option>
+                        <option value="">physics</option>
+                        <option value="">English Language</option>
+                        <option value="">Chemistry</option>
+                        <option value="">Biology</option>
+                        <option value="">Further Mathematics</option>
+                        <option value="">Agricultural Science</option>
+                        <option value="">Data Processing</option>
+                        <option value="">Economics</option>
+                        <option value="">Civic</option>
+                        <option value="">Geography</option>
+                    </select>
+                     <br>
+                </div>
+                <div class="d-grid">
+                    <button type="button" class="btn btn-primary" onclick="startquiz()" id="start">start quiz</button>
+                </div>
+            </div>
+            
+           </div>
+             <br>
+           <div class="card p-4">
+            <div id="quizsection" class="none">
+                <h5 id="questiontext" class="mb-3"></h5>
+                <div class="mb-3 text-muted" id="options"></div>
+                <div class="d-grid gap-2">
+                    <button type="button" class="btn btn-outline-success next  " id="next-btn" onclick="nextquestion()">next</button>
+                </div>
+        </div>
+    </div>
+    <nav class=" nav nav-pills nav-justified fixed-bottom bg-white border-top shadow-sm">
+
+        <a href="index.html" class="nav-link active"> <i class="bx bxs-home-circle"></i><br>Home </a>
+        <a href="Tasks.html" class="nav-link "><i class="bx bx-list-check"></i><br>Tasks </a>
+        <a href="Premium.html" class="nav-link "> <i class="bx bxs-star"></i><br>Premium</a>
+        <a href="Profile.html" class="nav-link "><i class="bx bxs-user"></i><br>Profile </a>
+      </nav>
+     <script src="assets/js/quiz.js"></script>
+</body>
+</html>
