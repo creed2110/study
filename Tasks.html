@@ -178,5 +178,37 @@ show_9425698().then(() => {
 
         
 	  </script>
+	<script>
+		document.addEventListener("DOMContentLoaded", function () {
+  let points = parseInt(localStorage.getItem("studyPoints")) || 0;
+  const pointsDisplay = document.querySelector(".points-display");
+  updatePointsDisplay(points);
+
+  // Add click events to all task buttons
+  const taskButtons = document.querySelectorAll(".card button, .card a");
+
+  taskButtons.forEach((btn) => {
+    btn.addEventListener("click", function () {
+      const taskText = btn.parentElement.querySelector("p").textContent;
+
+      let reward = 0;
+
+      if (taskText.includes("Earn 10")) reward = 10;
+      else if (taskText.includes("earn 5")) reward = 5;
+      else if (taskText.includes("get 20")) reward = 20;
+
+      points += reward;
+      localStorage.setItem("studyPoints", points);
+      updatePointsDisplay(points);
+
+      alert(`✅ Task complete! You earned ${reward} $study.`);
+    });
+  });
+
+  function updatePointsDisplay(points) {
+    pointsDisplay.textContent = `$study: ${points}`;
+  }
+});
+	</script>
 </body>
 </html>
