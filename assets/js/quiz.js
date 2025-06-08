@@ -1,108 +1,107 @@
-const quizdata = {
-   math: [
-    {
-      question:'what is 2+2',
-      options:[ "1","2","3","4" ],
+// quiz.js
 
-    },
-
-   ],
-   english: [
+const quizData = {
+  math: [
     {
-      question:'choose the correct spelling',
-      options:[ "receive","recive","receve","receeve" ],
-      correctanswer: "receive"
+      question: "What is 2 + 2?",
+      options: ["3", "4", "5", "6"],
+      correctAnswer: "4"
     },
     {
-      question:'choose the correct spelling',
-      options:[ "receive","recive","receve","receeve" ],
-      correctanswer: "receive"
+      question: "What is 5 * 3?",
+      options: ["8", "15", "10", "20"],
+      correctAnswer: "15"
+    }
+  ],
+  english: [
+    {
+      question: "Choose the correct spelling:",
+      options: ["Recieve", "Receive", "Receeve", "Recive"],
+      correctAnswer: "Receive"
     },
     {
-      question:'choose the correct spelling',
-      options:[ "receive","recive","receve","receeve" ],
-      correctanswer: "receive"
-    },
-   ],
-   geography: [
-    {
-      question:'which planet is known as the red planet',
-      options:[ "mars","jupiter","pluto","uranus" ], 
-      correctanswer: "mars"
-    },
-    {
-      question:'which planet is known as the dwarf planet',
-      options:[ "mars","jupiter","pluto","uranus" ],
-      correctanswer: "pluto" 
-
-    },
-   ]
+      question: "Which one is a noun?",
+      options: ["Quickly", "Run", "Happiness", "Very"],
+      correctAnswer: "Happiness"
+    }
+  ]
 };
- let selectedsubject = ""
-function choosesubject(){
-  const select = document.getElementById('subject-select');
-   selectedsubject = select.value;
-   if(selectedsubject!==""){
-     startquiz();
-   }else{
-     document.getElementById('quizsection').innerHTML=" ";
-   }
+
+let selectedSubject = "";
+let currentQuestion = 0;
+let score = 0;
+let selectedOption = "";
+
+function chooseSubject() {
+  const select = document.getElementById("subjectSelect");
+  selectedSubject = select.value;
+
+  if (selectedSubject !== "") {
+    startQuiz();
+  } else {
+    document.getElementById("quiz-box").innerHTML = "";
+  }
 }
-function  startquiz(){
-  currentquestion= 0
+
+function startQuiz() {
+  currentQuestion = 0;
   score = 0;
-  selectedoption= ""
-  
-  document.getElementById('next-btn').disabled = true;
-  showquestion();
-}
-function showquestion() {
-  const questions = quizdata[selectedsubject];
-  const questionobj = questions[currentquestion];
-
-  document.getElementById('questiontext').innerText = questionobj.question;
-
-  const optionscontainer = document.getElementById('options').innerHTML=""
-   selectedoption="";
-   document.getElementById('next-btn').disabled = true;
-
-   questionobj.option.forEach(option => 
-    {
-      const btn = document.createElement('button');
-      btn.innerText= option;
-      btn.onclick = () => 
-        selectedoption(btn, option);
-      optionscontainer.appendChild(btn);
-   });
+  selectedOption = "";
+  document.getElementById("nextBtn").disabled = true;
+  showQuestion();
 }
 
-function selectedoption(btn, option){
-  document.querySelectorAll("#optionsbutton").forEach(btn =>{
-    btn.style.backgroundcolor ="";
+function showQuestion() {
+  const questions = quizData[selectedSubject];
+  const questionObj = questions[currentQuestion];
 
+  document.getElementById("question").innerText = questionObj.question;
+
+  const optionsContainer = document.getElementById("options");
+  optionsContainer.innerHTML = "";
+  selectedOption = "";
+  document.getElementById("nextBtn").disabled = true;
+
+  questionObj.options.forEach(option => {
+    const btn = document.createElement("button");
+    btn.innerText = option;
+    btn.onclick = () => selectOption(btn, option);
+    optionsContainer.appendChild(btn);
   });
-  button.style.backgroundcolor ="lightblue";
-  selectedoption = option;
-
-  document.getElementById('next-btn').disabled = false;
 }
-function nextquestion(){
-  const questions = quizdata[selectedsubject];
-  const correct  = questions[currentquestion].correctanswer;
 
-  if(selectedoption === correct){
+function selectOption(button, option) {
+  // Clear all highlights
+  document.querySelectorAll("#options button").forEach(btn => {
+    btn.style.backgroundColor = "";
+  });
+
+  // Highlight selected
+  button.style.backgroundColor = "lightblue";
+  selectedOption = option;
+  document.getElementById("nextBtn").disabled = false;
+}
+
+function nextQuestion() {
+  const questions = quizData[selectedSubject];
+  const correct = questions[currentQuestion].correctAnswer;
+
+  if (selectedOption === correct) {
     score++;
   }
-  currentquestion++;
-  if(currentquestion < questions.length){
-    showquestion();
-  }else{
-    showresult();
+
+  currentQuestion++;
+
+  if (currentQuestion < questions.length) {
+    showQuestion();
+  } else {
+    showResult();
   }
 }
 
-function showresult(){
-   document.getElementById('quizsection').innerHTML = `
-   <div> your score: ${score}/${quizdata[selectedsubject].length}</div>
-   <button onclick="startquiz()">retry</button>`;
+function showResult() {
+  document.getElementById("quiz-box").innerHTML = `
+    <div>Your score: ${score}/${quizData[selectedSubject].length}</div>
+    <button onclick="startQuiz()">Retry</button>
+  `;
 }
