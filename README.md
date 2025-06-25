@@ -1,7 +1,3 @@
-Here's a beginner-friendly and well-organized README.md file for your Study Bot project on GitHub. It explains the purpose, features, technologies, setup, and usage clearly:
-
-
----
 
 📚 Study Bot
 
