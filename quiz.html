@@ -27,49 +27,90 @@
           height:80px;
 
       }
+         .quiz-box {
+      max-width: 700px;
+      margin: auto;
+    }
+    .options label {
+      display: block;
+      padding: 8px;
+      background: #fff;
+      border: 1px solid #ddd;
+      margin-bottom: 8px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .options label:hover {
+      background: #f1f1f1;
+    }
     </style>
 </head>
 <body>
-    <div class="container py-4">
-        <div class="card p-4" id="quizcard">
-            <h4 class="mb-3 text-center">
-                start a quiz
-            </h4>
-            <div id="startsection">
-                <div class="mb-3">
-                    <label for="" class="form-label">Select subject</label>
-                    <select  id="subjectSelect" class="form-select">
-                        <option selected disabled>Choose subject</option>
-                        <option value="">Mathematics</option>
-                        <option value="">physics</option>
-                        <option value="">English Language</option>
-                        <option value="">Chemistry</option>
-                        <option value="">Biology</option>
-                        <option value="">Further Mathematics</option>
-                        <option value="">Agricultural Science</option>
-                        <option value="">Data Processing</option>
-                        <option value="">Economics</option>
-                        <option value="">Civic</option>
-                        <option value="">Geography</option>
-                    </select>
-                     <br>
-                </div>
-                <div class="d-grid">
-                    <button type="button" class="btn btn-primary" onclick="startquiz()" id="start">start quiz</button>
-                </div>
-            </div>
-            
-           </div>
-             <br>
-           <div class="card p-4">
-            <div id="quiz-box" class="none">
-                <h5 id="question" class="mb-3"></h5>
-                <div class="mb-3 text-muted" id="options"></div>
-                <div class="d-grid gap-2">
-                    <button type="button" class="btn btn-outline-success next  " id="nextBtn" onclick="nextquestion()">next</button>
-                </div>
-        </div>
-    </div>
+    <div class="container py-4 quiz-box">
+
+  <!-- HEADER -->
+  <div class="text-center mb-4">
+    <h2>Quiz App</h2>
+    <div id="timer" class="fw-bold text-danger fs-5">10:00</div>
+  </div>
+
+  <!-- SUBJECT SELECT -->
+  <div class="card p-3 mb-3">
+    <label class="form-label">Select Subject</label>
+
+    <select id="subjectSelect" class="form-select mb-3">
+      <option value="">-- Choose Subject --</option>
+      <option value="english">English</option>
+      <option value="math">Math</option>
+      <option value="physics">Physics</option>
+      <option value="chemistry">Chemistry</option>
+      <option value="biology">Biology</option>
+    </select>
+
+    <button id="startBtn" class="btn btn-primary w-100">
+      Start Quiz
+    </button>
+  </div>
+
+  <!-- PROGRESS BAR -->
+  <div class="progress mb-3">
+    <div id="progressBar" class="progress-bar" style="width: 0%"></div>
+  </div>
+
+  <!-- QUIZ CONTAINER -->
+  <div id="quizContainer" class="card p-4 mb-3">
+    <p class="text-muted text-center">
+      Select a subject and start the quiz
+    </p>
+  </div>
+
+  <!-- NAV BUTTONS -->
+  <div class="d-flex justify-content-between mb-3">
+    <button id="prevBtn" class="btn btn-secondary">
+      Previous
+    </button>
+
+    <button id="nextBtn" class="btn btn-primary">
+      Next
+    </button>
+  </div>
+
+  <!-- SUBMIT -->
+  <button id="submitBtn" class="btn btn-success w-100 mb-3">
+    Submit Quiz
+  </button>
+
+  <!-- RESULT -->
+  <div id="result" class="text-center fw-bold fs-4 mb-3"></div>
+
+  <!-- RECENT SCORES -->
+  <div id="recentScores" class="card p-3">
+    <h5>Recent Scores</h5>
+    <p class="text-muted">No scores yet</p>
+  </div>
+
+</div>
+
     <nav class=" nav nav-pills nav-justified fixed-bottom bg-white border-top shadow-sm">
 
         <a href="index.html" class="nav-link active"> <i class="bx bxs-home-circle"></i><br>Home </a>
