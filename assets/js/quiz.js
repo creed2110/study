@@ -1,107 +1,399 @@
-// quiz.js
+// =========================
+// GLOBAL VARIABLES
+// =========================
 
-const quizData = {
-  math: [
-    {
-      question: "What is 2 + 2?",
-      options: ["3", "4", "5", "6"],
-      correctAnswer: "4"
-    },
-    {
-      question: "What is 5 * 3?",
-      options: ["8", "15", "10", "20"],
-      correctAnswer: "15"
-    }
-  ],
-  english: [
-    {
-      question: "Choose the correct spelling:",
-      options: ["Recieve", "Receive", "Receeve", "Recive"],
-      correctAnswer: "Receive"
-    },
-    {
-      question: "Which one is a noun?",
-      options: ["Quickly", "Run", "Happiness", "Very"],
-      correctAnswer: "Happiness"
-    }
-  ]
-};
+let quizzes = {};
 
-let selectedSubject = "";
+let selectedQuestions = [];
+let userAnswers = [];
+
 let currentQuestion = 0;
-let score = 0;
-let selectedOption = "";
+let timeLeft = 600; // 10 mins
+let timer;
 
-function chooseSubject() {
-  const select = document.getElementById("subjectSelect");
-  selectedSubject = select.value;
 
-  if (selectedSubject !== "") {
-    startQuiz();
-  } else {
-    document.getElementById("quiz-box").innerHTML = "";
-  }
-}
+// =========================
+// HTML ELEMENTS
+// =========================
+
+const subjectSelect = document.getElementById("subjectSelect");
+const startBtn = document.getElementById("startBtn");
+
+const quizContainer = document.getElementById("quizContainer");
+
+const nextBtn = document.getElementById("nextBtn");
+const prevBtn = document.getElementById("prevBtn");
+
+const submitBtn = document.getElementById("submitBtn");
+
+const result = document.getElementById("result");
+
+const timerDisplay = document.getElementById("timer");
+
+const progressBar = document.getElementById("progressBar");
+
+const recentScores = document.getElementById("recentScores");
+
+
+// =========================
+// FETCH QUESTIONS
+// =========================
+
+fetch("questions.json")
+  .then(res => {
+    console.log("Status:", res.status);
+    return res.json();
+  })
+  .then(data => {
+    quizzes = data;
+    console.log("Loaded OK:", quizzes);
+  })
+  .catch(err => {
+    console.error("FAILED TO LOAD JSON:", err);
+  });
+
+// =========================
+// START QUIZ
+// =========================
+
+startBtn.addEventListener("click", startQuiz);
 
 function startQuiz() {
+
+  const subject = subjectSelect.value;
+
+  if (!subject) {
+    alert("Please select a subject");
+    return;
+  }
+
+  // RANDOM QUESTIONS
+  selectedQuestions = quizzes[subject]
+    .sort(() => Math.random() - 0.5)
+    .slice(0, 20);
+
+  // RESET VALUES
   currentQuestion = 0;
-  score = 0;
-  selectedOption = "";
-  document.getElementById("nextBtn").disabled = true;
-  showQuestion();
+
+  userAnswers = new Array(selectedQuestions.length).fill(null);
+
+  timeLeft = 600;
+
+  result.innerHTML = "";
+
+  // START TIMER
+  startTimer();
+
+  // SHOW FIRST QUESTION
+  displayQuestion();
+
 }
 
-function showQuestion() {
-  const questions = quizData[selectedSubject];
-  const questionObj = questions[currentQuestion];
 
-  document.getElementById("question").innerText = questionObj.question;
+// =========================
+// DISPLAY QUESTION
+// =========================
 
-  const optionsContainer = document.getElementById("options");
-  optionsContainer.innerHTML = "";
-  selectedOption = "";
-  document.getElementById("nextBtn").disabled = true;
+function displayQuestion() {
 
-  questionObj.options.forEach(option => {
-    const btn = document.createElement("button");
-    btn.innerText = option;
-    btn.onclick = () => selectOption(btn, option);
-    optionsContainer.appendChild(btn);
-  });
-}
+  const q = selectedQuestions[currentQuestion];
 
-function selectOption(button, option) {
-  // Clear all highlights
-  document.querySelectorAll("#options button").forEach(btn => {
-    btn.style.backgroundColor = "";
-  });
+  quizContainer.innerHTML = `
+  
+    <h2>
+      Question ${currentQuestion + 1}
+    </h2>
 
-  // Highlight selected
-  button.style.backgroundColor = "lightblue";
-  selectedOption = option;
-  document.getElementById("nextBtn").disabled = false;
-}
+    <p>${q.question}</p>
 
-function nextQuestion() {
-  const questions = quizData[selectedSubject];
-  const correct = questions[currentQuestion].correctAnswer;
+    <div class="options">
 
-  if (selectedOption === correct) {
-    score++;
-  }
+      ${q.options.map(option => `
 
-  currentQuestion++;
+        <label>
 
-  if (currentQuestion < questions.length) {
-    showQuestion();
-  } else {
-    showResult();
-  }
-}
+          <input
+            type="radio"
+            name="option"
+            value="${option}"
 
-function showResult() {
-  document.getElementById("quiz-box").innerHTML = `
-    <div>Your score: ${score}/${quizData[selectedSubject].length}</div>
-    <button onclick="startQuiz()">Retry</button>
+            ${userAnswers[currentQuestion] === option
+              ? "checked"
+              : ""
+            }
+          >
+
+          ${option}
+
+        </label>
+
+        <br>
+
+      `).join("")}
+
+    </div>
+
   `;
+
+  updateProgressBar();
+
 }
+
+
+// =========================
+// SAVE ANSWER
+// =========================
+
+function saveAnswer() {
+
+  const selectedOption =
+    document.querySelector(
+      'input[name="option"]:checked'
+    );
+
+  if (selectedOption) {
+
+    userAnswers[currentQuestion] =
+      selectedOption.value;
+
+  }
+
+}
+
+
+// =========================
+// NEXT BUTTON
+// =========================
+
+nextBtn.addEventListener("click", () => {
+
+  saveAnswer();
+
+  if (
+    currentQuestion <
+    selectedQuestions.length - 1
+  ) {
+
+    currentQuestion++;
+
+    displayQuestion();
+
+  }
+
+});
+
+
+// =========================
+// PREVIOUS BUTTON
+// =========================
+
+prevBtn.addEventListener("click", () => {
+
+  saveAnswer();
+
+  if (currentQuestion > 0) {
+
+    currentQuestion--;
+
+    displayQuestion();
+
+  }
+
+});
+
+
+// =========================
+// TIMER
+// =========================
+
+function startTimer() {
+
+  clearInterval(timer);
+
+  timer = setInterval(() => {
+
+    timeLeft--;
+
+    let minutes =
+      Math.floor(timeLeft / 60);
+
+    let seconds =
+      timeLeft % 60;
+
+    timerDisplay.innerHTML =
+      `
+      ${minutes}:
+      ${seconds < 10 ? "0" : ""}
+      ${seconds}
+      `;
+
+    // AUTO SUBMIT
+    if (timeLeft <= 0) {
+
+      clearInterval(timer);
+
+      submitQuiz();
+
+    }
+
+  }, 1000);
+
+}
+
+
+// =========================
+// PROGRESS BAR
+// =========================
+
+function updateProgressBar() {
+
+  const progress =
+    (
+      (currentQuestion + 1)
+      /
+      selectedQuestions.length
+    ) * 100;
+
+  progressBar.style.width =
+    progress + "%";
+
+}
+
+
+// =========================
+// SUBMIT QUIZ
+// =========================
+
+submitBtn.addEventListener(
+  "click",
+  submitQuiz
+);
+
+function submitQuiz() {
+
+  saveAnswer();
+
+  clearInterval(timer);
+
+  let score = 0;
+
+  selectedQuestions.forEach(
+    (q, index) => {
+
+      if (
+        userAnswers[index] === q.answer
+      ) {
+
+        score++;
+
+      }
+
+    }
+  );
+
+  result.innerHTML = `
+  
+    <h2>
+      You scored
+      ${score}
+      /
+      ${selectedQuestions.length}
+    </h2>
+
+  `;
+
+  saveScore(score);
+
+  loadRecentScores();
+
+}
+
+
+// =========================
+// SAVE SCORE
+// =========================
+
+function saveScore(score) {
+
+  const subject =
+    subjectSelect.value;
+
+  const scores =
+    JSON.parse(
+      localStorage.getItem("scores")
+    ) || [];
+
+  scores.push({
+
+    subject,
+
+    score,
+
+    total:
+      selectedQuestions.length,
+
+    date:
+      new Date().toLocaleString()
+
+  });
+
+  localStorage.setItem(
+    "scores",
+    JSON.stringify(scores)
+  );
+
+}
+
+
+// =========================
+// LOAD RECENT SCORES
+// =========================
+
+function loadRecentScores() {
+
+  const scores =
+    JSON.parse(
+      localStorage.getItem("scores")
+    ) || [];
+
+  recentScores.innerHTML =
+    "<h3>Recent Scores</h3>";
+
+  scores.reverse().slice(0, 5)
+    .forEach(score => {
+
+      recentScores.innerHTML += `
+      
+        <div>
+
+          <strong>
+            ${score.subject}
+          </strong>
+
+          :
+          ${score.score}
+          /
+          ${score.total}
+
+          <br>
+
+          <small>
+            ${score.date}
+          </small>
+
+          <hr>
+
+        </div>
+
+      `;
+
+    });
+
+}
+
+
+// =========================
+// LOAD SCORES ON PAGE LOAD
+// =========================
+
+loadRecentScores();
