@@ -1,0 +1,65 @@
+{
+  "english": [
+    { "question": "Opposite of hot?", "options": ["Cold", "Warm", "Dry", "Soft"], "answer": "Cold" },
+    { "question": "Plural of child?", "options": ["Childs", "Children", "Childes", "Childer"], "answer": "Children" },
+    { "question": "Synonym of happy?", "options": ["Sad", "Joyful", "Angry", "Tired"], "answer": "Joyful" },
+    { "question": "Choose the correct spelling:", "options": ["Recieve", "Receive", "Receeve", "Receve"], "answer": "Receive" },
+    { "question": "Past tense of go?", "options": ["Goed", "Went", "Gone", "Going"], "answer": "Went" },
+    { "question": "Antonym of big?", "options": ["Large", "Huge", "Small", "Wide"], "answer": "Small" },
+    { "question": "He ____ to school daily.", "options": ["go", "goes", "gone", "going"], "answer": "goes" },
+    { "question": "A group of lions is called?", "options": ["Pack", "Herd", "Pride", "School"], "answer": "Pride" },
+    { "question": "Plural of mouse?", "options": ["Mouses", "Mice", "Mouse", "Mices"], "answer": "Mice" },
+    { "question": "Choose correct article: ____ apple", "options": ["A", "An", "The", "No article"], "answer": "An" }
+  ],
+
+  "math": [
+    { "question": "2 + 2 = ?", "options": ["3", "4", "5", "6"], "answer": "4" },
+    { "question": "5 × 3 = ?", "options": ["8", "15", "10", "20"], "answer": "15" },
+    { "question": "12 ÷ 4 = ?", "options": ["2", "3", "4", "6"], "answer": "3" },
+    { "question": "Square of 5?", "options": ["10", "20", "25", "30"], "answer": "25" },
+    { "question": "√16 = ?", "options": ["2", "3", "4", "5"], "answer": "4" },
+    { "question": "10 + 15 = ?", "options": ["20", "25", "30", "35"], "answer": "25" },
+    { "question": "Half of 50?", "options": ["20", "25", "30", "40"], "answer": "25" },
+    { "question": "3² = ?", "options": ["6", "9", "12", "3"], "answer": "9" },
+    { "question": "100 - 45 = ?", "options": ["55", "65", "75", "45"], "answer": "55" },
+    { "question": "What is 7 × 7?", "options": ["42", "49", "56", "36"], "answer": "49" }
+  ],
+
+  "physics": [
+    { "question": "SI unit of force?", "options": ["Joule", "Newton", "Watt", "Pascal"], "answer": "Newton" },
+    { "question": "Speed formula?", "options": ["d/t", "t/d", "m/v", "v/t"], "answer": "d/t" },
+    { "question": "Acceleration due to gravity?", "options": ["9.8 m/s²", "10 m/s", "5 m/s²", "1 m/s²"], "answer": "9.8 m/s²" },
+    { "question": "Device for measuring temperature?", "options": ["Barometer", "Thermometer", "Speedometer", "Voltmeter"], "answer": "Thermometer" },
+    { "question": "Energy unit?", "options": ["Joule", "Newton", "Ampere", "Ohm"], "answer": "Joule" },
+    { "question": "Light travels in?", "options": ["Curves", "Straight line", "Circle", "Wave only"], "answer": "Straight line" },
+    { "question": "SI unit of current?", "options": ["Volt", "Ampere", "Ohm", "Watt"], "answer": "Ampere" },
+    { "question": "Force that opposes motion?", "options": ["Gravity", "Friction", "Tension", "Lift"], "answer": "Friction" },
+    { "question": "Instrument for pressure?", "options": ["Barometer", "Thermometer", "Hygrometer", "Manometer"], "answer": "Barometer" },
+    { "question": "Work formula?", "options": ["F × d", "m × a", "v × t", "d / t"], "answer": "F × d" }
+  ],
+  "chemistry": [
+    { "question": "Symbol of water?", "options": ["H2O", "CO2", "O2", "NaCl"], "answer": "H2O" },
+    { "question": "Atomic number of oxygen?", "options": ["6", "7", "8", "9"], "answer": "8" },
+    { "question": "pH of neutral solution?", "options": ["7", "1", "14", "5"], "answer": "7" },
+    { "question": "Gas used in breathing?", "options": ["CO2", "O2", "H2", "N2"], "answer": "O2" },
+    { "question": "NaCl is?", "options": ["Sugar", "Salt", "Acid", "Base"], "answer": "Salt" },
+    { "question": "Chemical symbol of iron?", "options": ["Ir", "Fe", "In", "I"], "answer": "Fe" },
+    { "question": "Water is a?", "options": ["Element", "Compound", "Mixture", "Gas"], "answer": "Compound" },
+    { "question": "Gas in fizzy drinks?", "options": ["O2", "CO2", "H2", "N2"], "answer": "CO2" },
+    { "question": "Acid in lemon?", "options": ["Citric acid", "Sulfuric acid", "Hydrochloric acid", "Nitric acid"], "answer": "Citric acid" },
+    { "question": "Boiling point of water?", "options": ["50°C", "100°C", "150°C", "0°C"], "answer": "100°C" }
+  ],
+
+  "biology": [
+    { "question": "Basic unit of life?", "options": ["Tissue", "Cell", "Organ", "System"], "answer": "Cell" },
+    { "question": "Plant food is made in?", "options": ["Root", "Leaf", "Stem", "Flower"], "answer": "Leaf" },
+    { "question": "Human breathing organ?", "options": ["Heart", "Lungs", "Liver", "Kidney"], "answer": "Lungs" },
+    { "question": "Blood red pigment?", "options": ["Chlorophyll", "Hemoglobin", "Melanin", "Insulin"], "answer": "Hemoglobin" },
+    { "question": "Process of plants making food?", "options": ["Respiration", "Photosynthesis", "Digestion", "Transpiration"], "answer": "Photosynthesis" },
+    { "question": "Largest organ in human body?", "options": ["Heart", "Skin", "Liver", "Brain"], "answer": "Skin" },
+    { "question": "Organ for pumping blood?", "options": ["Lungs", "Heart", "Kidney", "Brain"], "answer": "Heart" },
+    { "question": "Plants absorb water through?", "options": ["Leaves", "Roots", "Stem", "Flowers"], "answer": "Roots" },
+    { "question": "Female reproductive part?", "options": ["Stamen", "Ovary", "Pollen", "Seed"], "answer": "Ovary" },
+    { "question": "Male reproductive part?", "options": ["Stamen", "Ovary", "Ovule", "Petal"], "answer": "Stamen" }
+  ]
+}
